@@ -1,4 +1,4 @@
-# python-msgmuncher
+# flask-msgmuncher
 ### Overview
 
 This simple python task queue takes in messages and performs light natural language processing.
