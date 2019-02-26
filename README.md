@@ -1,1 +1,1 @@
-# python---msgmuncher
+# python-msgmuncher
