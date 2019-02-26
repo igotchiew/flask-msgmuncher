@@ -4,6 +4,22 @@ from app import app
 from tasks.tasks import process_message
 
 
+@app.route('/login', methods=['POST'])
+def new_user():
+    req = request.get_json()
+    username = req['username']
+    password = req['password']
+    user = {
+        'username': username,
+        'password': password
+    }
+    client = MongoClient()
+    db = client.muncherdb
+    users = db.users
+    user_id = users.insert_one(user).inserted_id
+    return "got it, thanks!"
+
+
 @app.route('/intake', methods=['POST'])
 def intake():
     # go into form and get message
