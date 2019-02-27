@@ -4,8 +4,6 @@ from app import app
 from tasks.tasks import process_message
 
 
-<<<<<<< Updated upstream
-=======
 @app.route('/login', methods=['POST'])
 def new_user():
     req = request.get_json()
@@ -15,7 +13,7 @@ def new_user():
     password = req['password']
     # connect to Mongodb
     client = MongoClient()
-    # go to database name muncherdb
+    # go to database named muncherdb
     db = client.muncherdb
     # go to collection named users
     users = db.users
@@ -33,7 +31,6 @@ def new_user():
     return "got it, thanks!"
 
 
->>>>>>> Stashed changes
 @app.route('/intake', methods=['POST'])
 def intake():
     # go into form and get message
