@@ -4,6 +4,36 @@ from app import app
 from tasks.tasks import process_message
 
 
+<<<<<<< Updated upstream
+=======
+@app.route('/login', methods=['POST'])
+def new_user():
+    req = request.get_json()
+    # go into form and get username
+    username = req['username']
+    # go into form and get password
+    password = req['password']
+    # connect to Mongodb
+    client = MongoClient()
+    # go to database name muncherdb
+    db = client.muncherdb
+    # go to collection named users
+    users = db.users
+    # search users collection to find any duplicate usernames
+    if users.find_one({"username": username}):
+        # if there is a duplicate return statement
+        return "pick another username"
+    # if username is unique, create user (one user in users collection)
+    user = {
+        'username': username,
+        'password': password
+    }
+    # insert user into users collection
+    account_id = users.insert_one(user).inserted_id
+    return "got it, thanks!"
+
+
+>>>>>>> Stashed changes
 @app.route('/intake', methods=['POST'])
 def intake():
     # go into form and get message
