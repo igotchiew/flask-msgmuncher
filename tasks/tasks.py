@@ -12,14 +12,18 @@ app.config.update(
 celery = make_celery(app)
 
 
-@celery.task()
-def process_message(message_id):
+def connect_to_database():
     # go to Mongodb
     client = MongoClient()
     # use database named muncherdb
     db = client.muncherdb
+    return db
+
+
+@celery.task()
+def process_message(message_id):
     # use collection named posts
-    posts = db.posts
+    posts = connect_to_database().posts
     # converts message_id into an ObjectId called post_id
     post_id = ObjectId(message_id)
     # from posts collection, find message_id
@@ -28,7 +32,7 @@ def process_message(message_id):
     blob = TextBlob(post['message'])
     # create document with tags and sentiment
     updated_post = {
-        'account': post['account'],
+        'username': post['username'],
         'tags': blob.tags,
         'sentiment': blob.sentiment,
         'message': post['message']
